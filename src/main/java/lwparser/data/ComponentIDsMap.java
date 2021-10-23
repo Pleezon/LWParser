@@ -1,4 +1,4 @@
-package lwparser.Data;
+package lwparser.data;
 
 import lwparser.parser.DataObject;
 import lwparser.parser.Requester;

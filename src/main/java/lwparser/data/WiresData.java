@@ -1,9 +1,7 @@
-package lwparser.Data;
+package lwparser.data;
 
 import lwparser.parser.DataObject;
 import lwparser.parser.Requester;
-
-import java.util.ArrayList;
 
 public class WiresData extends DataObject {
 

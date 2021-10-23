@@ -1,6 +1,6 @@
 package lwparser.parser;
 
-import lwparser.Data.*;
+import lwparser.data.*;
 
 import java.io.*;
 
