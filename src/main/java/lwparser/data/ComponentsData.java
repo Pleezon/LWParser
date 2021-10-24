@@ -38,7 +38,8 @@ public class ComponentsData extends DataObject {
             public ComponentAdress() {
                 adress = getNextUnsignedInt();
             }
-            public void write(DataObject object){
+
+            public void write(DataObject object) {
                 object.writeNextUnsignedInt(adress);
             }
         }
@@ -48,36 +49,32 @@ public class ComponentsData extends DataObject {
             componentAdress = new ComponentAdress();
             parentAdress = new ComponentAdress();
             componentID = getNextUnsignedTwoByteInt();
-
             localPosX = getNextFloat();
             localPosY = getNextFloat();
             localPosZ = getNextFloat();
-
             rotationX = getNextFloat();
             rotationY = getNextFloat();
             rotationZ = getNextFloat();
             rotationW = getNextFloat();
-
-            numberOfInputs = getNextInt();
+            numberOfInputs = Math.max(getNextInt(), 0);
             inputCircuitStateIDs = new int[numberOfInputs];
             for (int i = 0; i < numberOfInputs; i++) {
                 inputCircuitStateIDs[i] = getNextInt();
             }
 
-            numberOfOutputs = getNextInt();
+            numberOfOutputs = Math.max(getNextInt(), 0);
             outputCircuitStateIDs = new int[numberOfOutputs];
             for (int i = 0; i < numberOfOutputs; i++) {
                 outputCircuitStateIDs[i] = getNextInt();
             }
-            int temp = getNextInt();
-            amountOfCustomData = Math.max(temp, 0);
+            amountOfCustomData = Math.max(getNextInt(), 0);
             customData = new byte[amountOfCustomData];
             for (int i = 0; i < amountOfCustomData; i++) {
                 customData[i] = getNextByte();
             }
         }
 
-        public void write(DataObject object){
+        public void write(DataObject object) {
             componentAdress.write(object);
             parentAdress.write(object);
             object.writeNextUnsignedTwoByteInt(componentID);
@@ -92,17 +89,16 @@ public class ComponentsData extends DataObject {
             object.writeNextFloat(rotationW);
 
             object.writeNextInt(numberOfInputs);
-            for(int circuitStateID:inputCircuitStateIDs){
+            for (int circuitStateID : inputCircuitStateIDs) {
                 object.writeNextInt(circuitStateID);
             }
 
             object.writeNextInt(numberOfOutputs);
-            object.writeNextInt(numberOfInputs);
-            for(int circuitStateID:outputCircuitStateIDs){
+            for (int circuitStateID : outputCircuitStateIDs) {
                 object.writeNextInt(circuitStateID);
             }
             object.writeNextInt(amountOfCustomData);
-            for(byte b:customData){
+            for (byte b : customData) {
                 object.writeNextByte(b);
             }
         }

@@ -122,9 +122,16 @@ public abstract class DataObject {
     }
 
     public void writeNextFloat(float f) {
-        byte[] array = ByteBuffer.allocate(4).putFloat(f).order(ByteOrder.LITTLE_ENDIAN).array();
+
+        /*byte[] array = ByteBuffer.allocate(4).putFloat(f).array();
         for (byte b : array) {
             writeNextByte(b);
+        }*/
+        byte[] byteArray = new byte[4];
+        int intBits = Float.floatToIntBits(f);
+        for (int i = 0; i < byteArray.length; i++) {
+            writeNextByte((byte) intBits);
+            intBits = intBits >> 8;
         }
     }
 

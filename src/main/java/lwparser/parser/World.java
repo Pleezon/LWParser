@@ -1,5 +1,6 @@
 package lwparser.parser;
 
+import com.google.gson.Gson;
 import lwparser.data.*;
 
 import java.io.*;
@@ -32,15 +33,25 @@ public class World {
             }
         };
         header = new Header(r);
+        System.out.println(new Gson().toJson(header));
         saveFormatVersion = new SaveFormatVersion(r);
+        System.out.println(new Gson().toJson(saveFormatVersion));
         gameVersion = new GameVersion(r);
+        System.out.println(new Gson().toJson(gameVersion));
         saveType = new SaveType(r);
+        System.out.println(new Gson().toJson(saveType));
         numberOfComponentsAndWires = new NumberOfComponentsAndWires(r);
+        System.out.println(new Gson().toJson(numberOfComponentsAndWires));
         modVersions = new ModVersions(r);
+        System.out.println(new Gson().toJson(modVersions));
         componentIDsMap = new ComponentIDsMap(r);
+        System.out.println(new Gson().toJson(componentIDsMap));
         componentsData = new ComponentsData(r,numberOfComponentsAndWires.numberOfComponents);
+        System.out.println(new Gson().toJson(componentsData));
         wiresData = new WiresData(r,numberOfComponentsAndWires.numberOfWires);
+        System.out.println(new Gson().toJson(wiresData));
         circuitStates = new CircuitStates(r);
+        System.out.println(new Gson().toJson(circuitStates));
         footer = new Footer(r);
         if(footer.footer.equals("redstone sux lol")){
             System.out.println("read correctly!");

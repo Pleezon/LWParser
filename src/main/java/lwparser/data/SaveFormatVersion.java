@@ -4,14 +4,14 @@ import lwparser.parser.DataObject;
 import lwparser.parser.Reader;
 
 public class SaveFormatVersion extends DataObject {
-    public final byte version;
+    public final byte saveFormatVersion;
     public SaveFormatVersion(Reader r) {
         super(r);
-        version = getNextByte();
+        saveFormatVersion = getNextByte();
     }
 
     @Override
     public void write() {
-        writeNextByte(version);
+        writeNextByte(saveFormatVersion);
     }
 }
