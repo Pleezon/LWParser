@@ -14,9 +14,9 @@ public class ComponentsData extends DataObject {
 
         public final int componentID;
 
-        public final float localPosX;
+        public float localPosX;
         public final float localPosY;
-        public final float localPosZ;
+        public float localPosZ;
 
         public final float rotationX;
         public final float rotationY;
@@ -33,7 +33,7 @@ public class ComponentsData extends DataObject {
         public final byte[] customData;
 
         public class ComponentAdress {
-            public final long adress;
+            public long adress;
 
             public ComponentAdress() {
                 adress = getNextUnsignedInt();
@@ -49,9 +49,12 @@ public class ComponentsData extends DataObject {
             componentAdress = new ComponentAdress();
             parentAdress = new ComponentAdress();
             componentID = getNextUnsignedTwoByteInt();
+
             localPosX = getNextFloat();
             localPosY = getNextFloat();
             localPosZ = getNextFloat();
+
+
             rotationX = getNextFloat();
             rotationY = getNextFloat();
             rotationZ = getNextFloat();
@@ -79,7 +82,9 @@ public class ComponentsData extends DataObject {
             parentAdress.write(object);
             object.writeNextUnsignedTwoByteInt(componentID);
 
+
             object.writeNextFloat(localPosX);
+
             object.writeNextFloat(localPosY);
             object.writeNextFloat(localPosZ);
 

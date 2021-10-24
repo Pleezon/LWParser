@@ -8,6 +8,7 @@ public class Frame extends JFrame {
     public JTextArea jsonField;
     public Runnable onParseClick;
     public Runnable onSaveClick;
+    public Runnable onCompactCircuitsClick;
     public JTextField pathField;
     public Frame(){
         super("LWParser");
@@ -33,17 +34,23 @@ public class Frame extends JFrame {
         });
         saveButton.setBounds(20,70,440,20);
         this.add(saveButton);
+        JButton compactCircuitsButton = new JButton("compact circuits!");
+        compactCircuitsButton.addActionListener((a)->{
+            onCompactCircuitsClick.run();
+        });
+        compactCircuitsButton.setBounds(20,90,440,20);
+        this.add(compactCircuitsButton);
 
 
         jsonField = new JTextArea();
         JScrollPane jsonPane = new JScrollPane(jsonField);
-        jsonPane.setBounds(20,90,440,610);
+        jsonPane.setBounds(20,110,440,610);
         this.add(jsonPane);
 
         //scrollPane.setBounds(20,70,440,300);
 
 
-        this.setSize(500 ,750);
+        this.setSize(500 ,770);
         this.setVisible(true);
     }
 }
