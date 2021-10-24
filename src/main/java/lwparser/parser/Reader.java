@@ -1,5 +1,5 @@
 package lwparser.parser;
 
-public abstract class Requester {
+public abstract class Reader {
     public abstract Byte nextByte();
 }

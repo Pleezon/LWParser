@@ -18,6 +18,7 @@ public class Frame extends JFrame {
         pathLabel.setBounds(20,10,440,20);
         this.add(pathLabel);
         pathField = new JTextField();
+        pathField.setText("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Logic World\\saves\\");
         pathField.setBounds(20,30,440,20);
         this.add(pathField);
         JButton parseButton = new JButton("parse!");

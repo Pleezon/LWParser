@@ -32,7 +32,15 @@ public class Parser {
             }
         };
         f.onSaveClick = () -> {
-            World w = new Gson().fromJson(f.jsonField.getText(),World.class);
+            File file = new File(f.pathField.getText());
+            if(file.exists()){
+                World w = new Gson().fromJson(f.jsonField.getText(),World.class);
+                try {
+                    w.save(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
         };
     }

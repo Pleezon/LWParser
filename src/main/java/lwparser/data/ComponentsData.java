@@ -1,7 +1,9 @@
 package lwparser.data;
 
 import lwparser.parser.DataObject;
-import lwparser.parser.Requester;
+import lwparser.parser.Reader;
+
+import java.io.DataInput;
 
 public class ComponentsData extends DataObject {
     public final Component[] components;
@@ -35,6 +37,9 @@ public class ComponentsData extends DataObject {
 
             public ComponentAdress() {
                 adress = getNextUnsignedInt();
+            }
+            public void write(DataObject object){
+                object.writeNextUnsignedInt(adress);
             }
         }
 
@@ -70,16 +75,51 @@ public class ComponentsData extends DataObject {
             for (int i = 0; i < amountOfCustomData; i++) {
                 customData[i] = getNextByte();
             }
+        }
 
+        public void write(DataObject object){
+            componentAdress.write(object);
+            parentAdress.write(object);
+            object.writeNextUnsignedTwoByteInt(componentID);
 
+            object.writeNextFloat(localPosX);
+            object.writeNextFloat(localPosY);
+            object.writeNextFloat(localPosZ);
+
+            object.writeNextFloat(rotationX);
+            object.writeNextFloat(rotationY);
+            object.writeNextFloat(rotationZ);
+            object.writeNextFloat(rotationW);
+
+            object.writeNextInt(numberOfInputs);
+            for(int circuitStateID:inputCircuitStateIDs){
+                object.writeNextInt(circuitStateID);
+            }
+
+            object.writeNextInt(numberOfOutputs);
+            object.writeNextInt(numberOfInputs);
+            for(int circuitStateID:outputCircuitStateIDs){
+                object.writeNextInt(circuitStateID);
+            }
+            object.writeNextInt(amountOfCustomData);
+            for(byte b:customData){
+                object.writeNextByte(b);
+            }
         }
     }
 
-    public ComponentsData(Requester r, int amountOfComponents) {
+    public ComponentsData(Reader r, int amountOfComponents) {
         super(r);
         components = new Component[amountOfComponents];
         for (int i = 0; i < amountOfComponents; i++) {
             components[i] = new Component();
+        }
+    }
+
+    @Override
+    public void write() {
+        for (Component component : components) {
+            component.write(this);
         }
     }
 }

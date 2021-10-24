@@ -1,12 +1,11 @@
 package lwparser.data;
 
 import lwparser.parser.DataObject;
-import lwparser.parser.Requester;
+import lwparser.parser.Reader;
 
 public class WiresData extends DataObject {
 
     public final Wire[] wires;
-
 
     public class Wire {
         public final PegAdress firstPoint;
@@ -20,14 +19,27 @@ public class WiresData extends DataObject {
             circuitStateID = getNextInt();
             rotation = getNextFloat();
         }
+        public void write(DataObject object){
+            object.writeNextPegAdress(firstPoint);
+            object.writeNextPegAdress(secondPoint);
+            object.writeNextInt(circuitStateID);
+            object.writeNextFloat(rotation);
+        }
     }
 
 
-    public WiresData(Requester r, int amountOfWires) {
+    public WiresData(Reader r, int amountOfWires) {
         super(r);
         wires = new Wire[amountOfWires];
         for(int i=0; i<amountOfWires; i++){
             wires[i] = new Wire();
         }
     }
+    @Override
+    public void write() {
+        for(Wire w:wires){
+            w.write(this);
+        }
+    }
+
 }

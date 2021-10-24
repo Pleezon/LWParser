@@ -20,7 +20,7 @@ public class World {
 
 
     public World(InputStream inputStream){
-        Requester r = new Requester() {
+        Reader r = new Reader() {
             @Override
             public Byte nextByte() {
                 try {
@@ -47,11 +47,43 @@ public class World {
         }
     }
 
-    public OutputStream save(File file) throws FileNotFoundException {
+    public void save(File file) throws IOException {
         OutputStream outputStream = new FileOutputStream(file);
+        Writer w = new Writer() {
+            @Override
+            public void writeNext(byte b) {
+                try {
+                    outputStream.write(b);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        header.setWriter(w);
+        saveFormatVersion.setWriter(w);
+        gameVersion.setWriter(w);
+        saveType.setWriter(w);
+        numberOfComponentsAndWires.setWriter(w);
+        modVersions.setWriter(w);
+        componentIDsMap.setWriter(w);
+        componentsData.setWriter(w);
+        wiresData.setWriter(w);
+        circuitStates.setWriter(w);
+        footer.setWriter(w);
 
-
-        return outputStream;
+        header.write();
+        saveFormatVersion.write();
+        gameVersion.write();
+        saveType.write();
+        numberOfComponentsAndWires.write();
+        modVersions.write();
+        componentIDsMap.write();
+        componentsData.write();
+        wiresData.write();
+        circuitStates.write();
+        footer.write();
+        outputStream.close();
+        System.out.println("Saved!");
     };
 
 
