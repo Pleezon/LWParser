@@ -2,7 +2,7 @@
 ### a JSON parser for LogicWorld's game files (.logicworld)
 Can save/load LogicWorld's game files to/from JSON
 <Java 11>
-
+Special thanks to Red_3D#3062 for the tips.
 
 
 
